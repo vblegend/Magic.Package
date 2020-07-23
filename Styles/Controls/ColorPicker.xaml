@@ -1,0 +1,254 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PropertyTools.Wpf"
+    xmlns:local="clr-namespace:Magic.Styles.Controls"
+    xmlns:pt="http://propertytools.org/wpf">
+
+
+
+    <Style TargetType="{x:Type pt:ColorPicker}">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type pt:ColorPicker}">
+                        <Grid x:Name="MainGrid" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8" />
+                            </Grid.ColumnDefinitions>
+
+
+
+                            <Popup
+                                x:Name="PART_Popup"
+                                Grid.ColumnSpan="2"
+                                Margin="1"
+                                AllowsTransparency="True"
+                                IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                Placement="Bottom"
+                                PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                                <Grid x:Name="Shdw" MinWidth="{Binding ActualWidth, ElementName=MainGrid}">
+                                    <Border
+                                        x:Name="DropDownBorder"
+                                        Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                        BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                        BorderThickness="1">
+                                        <pt:ColorPickerPanel
+                                            x:Name="PART_ColorPickerPanel"
+                                            MaxNumberOfRecentColors="20"
+                                            SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ShowHsvPanel="False" />
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                            <ToggleButton
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Background="{DynamicResource GLOBAL_TEXTBOX_BACKGROUND}"
+                                BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                BorderThickness="1"
+                                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="OverridesDefaultStyle" Value="True" />
+                                        <Setter Property="IsTabStop" Value="False" />
+                                        <Setter Property="Focusable" Value="False" />
+                                        <Setter Property="ClickMode" Value="Press" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                                                    <Grid
+                                                        x:Name="Chrome"
+                                                        Background="{DynamicResource GLOBAL_TEXTBOX_BACKGROUND}"
+                                                        SnapsToDevicePixels="True">
+                                                        <Border
+                                                            x:Name="border"
+                                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                                            BorderThickness="1" />
+                                                        <Grid Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" HorizontalAlignment="Right">
+                                                            <Path
+                                                                x:Name="Arrow"
+                                                                Margin="3,1,0,0"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Data="M0,0L3.5,4 7,0z"
+                                                                Fill="{DynamicResource GLOBAL_FOREGROUND_COLOR}" />
+                                                        </Grid>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GLOBAL_TEXTBOX_OVER_BORDER_BACKGROUND}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GLOBAL_TEXTBOX_FOUC_BORDER_BACKGROUND}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                                                        </Trigger>
+
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <Setter TargetName="Arrow" Property="Fill" Value="#FFAFAFAF" />
+                                                        </Trigger>
+
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+                            <ContentPresenter
+                                Grid.Column="0"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Content="{Binding SelectedColor, RelativeSource={RelativeSource TemplatedParent}}"
+                                IsHitTestVisible="False"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel
+                                            Margin="4,0"
+                                            IsHitTestVisible="False"
+                                            Orientation="Horizontal">
+                                            <Grid
+                                                Width="13"
+                                                Height="13"
+                                                VerticalAlignment="Center">
+                                                <Rectangle
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    SnapsToDevicePixels="True">
+                                                    <Rectangle.Fill>
+                                                        <DrawingBrush
+                                                            TileMode="Tile"
+                                                            Viewport="0,0,7,7"
+                                                            ViewportUnits="Absolute">
+                                                            <DrawingBrush.Drawing>
+                                                                <DrawingGroup>
+                                                                    <GeometryDrawing Brush="White">
+                                                                        <GeometryDrawing.Geometry>
+                                                                            <RectangleGeometry Rect="0,0,1,1" />
+                                                                        </GeometryDrawing.Geometry>
+                                                                    </GeometryDrawing>
+                                                                    <GeometryDrawing Brush="Black">
+                                                                        <GeometryDrawing.Geometry>
+                                                                            <GeometryGroup>
+                                                                                <RectangleGeometry Rect="0,0,0.5,0.5" />
+                                                                                <RectangleGeometry Rect="0.5,0.5,0.5,0.5" />
+                                                                            </GeometryGroup>
+                                                                        </GeometryDrawing.Geometry>
+                                                                    </GeometryDrawing>
+                                                                </DrawingGroup>
+                                                            </DrawingBrush.Drawing>
+                                                        </DrawingBrush>
+                                                    </Rectangle.Fill>
+                                                    <Rectangle.Visibility>
+                                                        <Binding>
+                                                            <Binding.Converter>
+                                                                <pt:DefinedColorToVisibilityConverter />
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </Rectangle.Visibility>
+                                                </Rectangle>
+                                                <Rectangle
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    SnapsToDevicePixels="True"
+                                                    Stroke="Gray">
+                                                    <Rectangle.Fill>
+                                                        <Binding>
+                                                            <Binding.Converter>
+                                                                <pt:ColorToBrushConverter />
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <Polyline
+                                                    Points="2,2 11,11"
+                                                    Stroke="Black"
+                                                    StrokeThickness="2">
+                                                    <Polyline.Visibility>
+                                                        <Binding>
+                                                            <Binding.ConverterParameter>
+                                                                <Color>#00000001</Color>
+                                                            </Binding.ConverterParameter>
+                                                            <Binding.Converter>
+                                                                <pt:ValueToVisibilityConverter EqualsVisibility="Visible" NotEqualsVisibility="Collapsed" />
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </Polyline.Visibility>
+                                                </Polyline>
+                                                <Polyline
+                                                    Points="2,11 11,2"
+                                                    Stroke="Black"
+                                                    StrokeThickness="2">
+                                                    <Polyline.Visibility>
+                                                        <Binding>
+                                                            <Binding.ConverterParameter>
+                                                                <Color>#00000001</Color>
+                                                            </Binding.ConverterParameter>
+                                                            <Binding.Converter>
+                                                                <pt:ValueToVisibilityConverter EqualsVisibility="Visible" NotEqualsVisibility="Collapsed" />
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </Polyline.Visibility>
+                                                </Polyline>
+                                                <TextBlock
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontWeight="Bold"
+                                                    Foreground="{DynamicResource GLOBAL_TEXTBOX_FOREGROUND}"
+                                                    Text="?">
+                                                    <TextBlock.Visibility>
+                                                        <Binding>
+                                                            <Binding.ConverterParameter>
+                                                                <Color>#00000000</Color>
+                                                            </Binding.ConverterParameter>
+                                                            <Binding.Converter>
+                                                                <pt:ValueToVisibilityConverter EqualsVisibility="Visible" NotEqualsVisibility="Collapsed" />
+                                                            </Binding.Converter>
+                                                        </Binding>
+                                                    </TextBlock.Visibility><Run Text="?" /></TextBlock>
+                                            </Grid>
+                                            <TextBlock
+                                                Margin="8,0,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource GLOBAL_TEXTBOX_FOREGROUND}">
+                                                <TextBlock.Text>
+                                                    <Binding>
+                                                        <Binding.Converter>
+                                                            <pt:ColorToStringConverter />
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="True">
+                                <Setter TargetName="Shdw" Property="Margin" Value="0,0,5,5" />
+                                <Setter TargetName="Shdw" Property="Color" Value="#71000000" />
+                            </Trigger>-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                                <Setter Property="Background" Value="#FFF4F4F4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+
+    </Style>
+
+
+
+
+</ResourceDictionary>

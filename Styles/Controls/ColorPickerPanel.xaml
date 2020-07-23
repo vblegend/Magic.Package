@@ -1,0 +1,438 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:PropertyTools.Wpf"
+    xmlns:pt="http://propertytools.org/wpf">
+    <pt:ColorToBrushConverter x:Key="ColorToBrushConverter2" />
+    <pt:ColorToHexConverter x:Key="ColorToHexConverter2" />
+
+    <pt:ColorToStringConverter x:Key="ColorToStringConverter2" />
+    <pt:ColorToComponentConverter x:Key="ColorToComponentConverter2" />
+    <pt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <pt:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter2" InvertVisibility="True" />
+    <pt:ValueToVisibilityConverter x:Key="ValueToVisibilityConverter" />
+    <pt:DefinedColorToVisibilityConverter x:Key="DefinedColorToVisibilityConverter" />
+    <BitmapImage x:Key="ColorPickerImageSource" UriSource="/Magic.Package;component/Images/Content/folder.closed.png" />
+
+    <BitmapImage x:Key="HsvImageSource" UriSource="/Magic.Package;component/Images/Content/folder.opend.png" />
+
+    <Path
+        x:Key="HsvImagePath"
+        Data="M0,4 L4,1 4,3 15,3 15,5 4,5 4,7 Z M22,11 L18,8 18,10 7,10 7,12 18,12 18,14 Z"
+        Fill="{DynamicResource GLOBAL_FOREGROUND_COLOR}" />
+
+
+    <Style x:Key="ColorItemContainerStyle" TargetType="ListBoxItem">
+        <Setter Property="Padding" Value="0" />
+    </Style>
+    <DrawingBrush
+        x:Key="SmallCheckerBoardBrush2"
+        TileMode="Tile"
+        Viewport="0,0,7,7"
+        ViewportUnits="Absolute">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,1,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="Black">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <RectangleGeometry Rect="0,0,0.50,0.50" />
+                            <RectangleGeometry Rect="0.50,0.50,0.50,0.50" />
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <DrawingBrush
+        x:Key="CheckersBrush"
+        TileMode="Tile"
+        Viewport="0,0,11,11"
+        ViewportUnits="Absolute">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="White" Geometry="M0,0 L2,0 2,2, 0,2Z" />
+                <GeometryDrawing Brush="LightGray" Geometry="M0,1 L2,1 2,2 1,2 1,0 0,0Z" />
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+
+
+    <ItemsPanelTemplate x:Key="ColorItemsPanelTemplate">
+        <UniformGrid
+            Margin="0,2,0,2"
+            HorizontalAlignment="Center"
+            Columns="10" />
+    </ItemsPanelTemplate>
+
+
+
+    <DataTemplate x:Key="ColorItemTemplate">
+        <Grid
+            Width="13"
+            Height="13"
+            Margin="1,2,1,2"
+            HorizontalAlignment="Center"
+            SnapsToDevicePixels="True"
+            ToolTip="{Binding Converter={StaticResource ColorToStringConverter2}}">
+            <Rectangle
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Fill="{StaticResource SmallCheckerBoardBrush2}"
+                SnapsToDevicePixels="True"
+                Visibility="{Binding Converter={StaticResource DefinedColorToVisibilityConverter}}" />
+            <Rectangle
+                Fill="{Binding Converter={StaticResource ColorToBrushConverter2}, UpdateSourceTrigger=PropertyChanged}"
+                SnapsToDevicePixels="True"
+                Stroke="#e2e4e7" />
+            <Polyline
+                Points="2,2 11,11"
+                Stroke="Black"
+                StrokeThickness="2"
+                Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static pt:ColorHelper.Automatic}}" />
+            <Polyline
+                Points="2,11 11,2"
+                Stroke="Black"
+                StrokeThickness="2"
+                Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static pt:ColorHelper.Automatic}}" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Text="?"
+                Visibility="{Binding Converter={StaticResource ValueToVisibilityConverter}, ConverterParameter={x:Static pt:ColorHelper.UndefinedColor}}" />
+        </Grid>
+    </DataTemplate>
+
+
+
+    <Style TargetType="{x:Type pt:ColorPickerPanel}">
+        <Setter Property="Background" Value="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type pt:ColorPickerPanel}">
+                    <StackPanel>
+                        <Grid Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Padding="2"
+                                Background="Transparent"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                Text="{Binding Strings.ThemeColors, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                Visibility="{Binding ShowHsvPanel, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter2}}" />
+                            <TextBlock
+                                Grid.Column="0"
+                                Padding="2"
+                                Background="Transparent"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                Text="{Binding Strings.HSV, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                Visibility="{Binding ShowHsvPanel, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                            <ToggleButton
+                                Grid.Column="1"
+                                Padding="0"
+                                IsChecked="{Binding IsPicking, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}"
+                                ToolTip="{Binding Strings.ColorPickerToolTip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                <!--<ToggleButton.Content>
+                                    <Image Source="{StaticResource ColorPickerImageSource}" Stretch="None" />
+                                </ToggleButton.Content>-->
+                            </ToggleButton>
+                            <ToggleButton
+                                Grid.Column="2"
+                                Margin="0,2,2,0"
+                                Padding="0"
+                                Content="{StaticResource HsvImagePath}"
+                                IsChecked="{Binding ShowHsvPanel, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}"
+                                ToolTip="{Binding Strings.TogglePanelToolTip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                <!--<ToggleButton.Content>
+                                    <Image Source="{StaticResource HsvImageSource}" Stretch="None" />
+                                </ToggleButton.Content>-->
+                            </ToggleButton>
+                        </Grid>
+                        <Grid MinWidth="175" Visibility="{Binding ShowHsvPanel, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter2}}">
+                            <StackPanel x:Name="PART_PredefinedColorPanel">
+                                <ListBox
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                    BorderThickness="0,0.5,0,0.5"
+                                    ItemContainerStyle="{StaticResource ColorItemContainerStyle}"
+                                    ItemTemplate="{StaticResource ColorItemTemplate}"
+                                    ItemsPanel="{StaticResource ColorItemsPanelTemplate}"
+                                    ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <TextBlock
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                    Text="{Binding Strings.StandardColors, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <ListBox
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                    BorderThickness="0,0.5,0,0.5"
+                                    ItemContainerStyle="{StaticResource ColorItemContainerStyle}"
+                                    ItemTemplate="{StaticResource ColorItemTemplate}"
+                                    ItemsPanel="{StaticResource ColorItemsPanelTemplate}"
+                                    ItemsSource="{Binding StandardColors, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <TextBlock
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                    Text="{Binding Strings.OpacityVariations, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <ListBox
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                    BorderThickness="0.5"
+                                    ItemContainerStyle="{StaticResource ColorItemContainerStyle}"
+                                    ItemTemplate="{StaticResource ColorItemTemplate}"
+                                    ItemsPanel="{StaticResource ColorItemsPanelTemplate}"
+                                    ItemsSource="{Binding OpacityVariations, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <TextBlock
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                    Text="{Binding Strings.RecentColors, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <ListBox
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                    BorderThickness="0,0.5,0,0"
+                                    ItemContainerStyle="{StaticResource ColorItemContainerStyle}"
+                                    ItemTemplate="{StaticResource ColorItemTemplate}"
+                                    ItemsPanel="{StaticResource ColorItemsPanelTemplate}"
+                                    ItemsSource="{Binding RecentColors, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid MinWidth="175" Visibility="{Binding ShowHsvPanel, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <StackPanel>
+                                <Border Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}">
+                                    <Grid Margin="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <pt:HsvControl
+                                            x:Name="PART_HSV"
+                                            Height="100"
+                                            Margin="1,0,1,0"
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            Hue="{Binding Hue, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                            Saturation="{Binding Saturation, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                            SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                            Value="{Binding Brightness, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <pt:SpectrumSlider
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            Value="{Binding Hue, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <pt:ColorSlider
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Background="{StaticResource CheckersBrush}"
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            LeftColor="#00000000"
+                                            RightColor="#FF000000"
+                                            Value="{Binding Alpha, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+
+                                    </Grid>
+                                </Border>
+                                <TextBlock
+                                    Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                    Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                    Text="{Binding Strings.Values, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                <Border Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}">
+                                    <Grid Margin="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="R:" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="G:" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="B:" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            Grid.Column="0"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="A:" />
+
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="3"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="H:" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="3"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="S:" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="3"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="B:" />
+
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            Grid.Column="5"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="&#176;" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="5"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="%" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Grid.Column="5"
+                                            Padding="2"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="%" />
+
+                                        <TextBox
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Red, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <TextBox
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Green, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <TextBox
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Blue, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <TextBox
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Alpha, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+
+                                        <TextBox
+                                            Grid.Row="0"
+                                            Grid.Column="4"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Hue, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <TextBox
+                                            Grid.Row="1"
+                                            Grid.Column="4"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Saturation, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <TextBox
+                                            Grid.Row="2"
+                                            Grid.Column="4"
+                                            Background="{DynamicResource GLOBAL_POPUP_MENU_BACKGROUND}"
+                                            BorderBrush="{DynamicResource GLOBAL_TEXTBOX_BORDER_BACKGROUND}"
+                                            BorderThickness="1"
+                                            Foreground="{DynamicResource GLOBAL_FOREGROUND_COLOR}"
+                                            Text="{Binding Brightness, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+
+                                        <TextBox
+                                            Grid.Row="3"
+                                            Grid.Column="3"
+                                            Grid.ColumnSpan="3"
+                                            Text="{Binding SelectedColor, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource ColorToHexConverter2}}"
+                                            TextAlignment="Center" />
+
+
+                                        <Button
+                                            x:Name="PART_PredefinedColorCopy"
+                                            Grid.Row="3"
+                                            Grid.Column="6"
+                                            Width="24"
+                                            HorizontalAlignment="Left"
+                                            Content="C" />
+
+
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+</ResourceDictionary>
