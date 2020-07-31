@@ -84,6 +84,8 @@ namespace Magic.Controls
                     left = Canvas.GetLeft(this) + HorizontalChange;
                     top = Canvas.GetTop(this) + VerticalChange;
 
+                    //left = left < 0 ? 0 : left;
+                    //top = top < 0 ? 0 : top;
                     break;
                 case 2:
                     width = this.Width + HorizontalChange;
@@ -103,6 +105,15 @@ namespace Magic.Controls
                 default:
                     break;
             }
+            //if (top < 0)
+            //{
+            //    height = height - Math.Abs(top);
+            //    top = 0;
+            //}
+
+
+
+
             width = width < 1 ? 1 : width;
             this.Width = width;
             height = height < 1 ? 1 : height;

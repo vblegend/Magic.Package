@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -165,7 +167,7 @@ namespace Magic
         /// </summary>
         /// <param name="Control"></param>
         /// <returns></returns>
-        public static FrameworkElement FindParent<T>(this FrameworkElement Control)
+        public static T FindParent<T>(this FrameworkElement Control)
             where T : FrameworkElement
         {
             FrameworkElement element = Control;
@@ -173,7 +175,7 @@ namespace Magic
             {
                 if (element.GetType() == typeof(T))
                 {
-                    return element;
+                    return (T)element;
                 }
                 element = (FrameworkElement)VisualTreeHelper.GetParent(element);
             }
@@ -200,14 +202,45 @@ namespace Magic
             return null;
         }
 
+
+        /// <summary>
+        /// 根据提供的名称 查找父级控件
+        /// </summary>
+        /// <param name="Control"></param>
+        /// <param name="parenttype">父对象类型</param>
+        /// <returns></returns>
+        public static List<TResult> FindParents<TResult,TEnd>(this FrameworkElement Control)
+            where TResult : FrameworkElement
+        {
+            List<TResult> results = new List<TResult>();
+            FrameworkElement element = (FrameworkElement)VisualTreeHelper.GetParent(Control);
+            while (element != null)
+            {
+                if (element.GetType() == typeof(TResult))
+                {
+                    results.Add((TResult)element);
+                }
+                else if (element.GetType() == typeof(TEnd))
+                {
+                    return results;
+                }
+                element = (FrameworkElement)VisualTreeHelper.GetParent(element);
+            }
+            return results;
+        }
+
+
+
+
         /// <summary>
         /// 根据型查找子对象
         /// </summary>
         /// <param name="Control"></param>
         /// <returns></returns>
-        public static FrameworkElement FindChild<T>(this FrameworkElement Control)
+        public static List<T> FindChilds<T>(this FrameworkElement Control)
             where T : FrameworkElement
         {
+            List<T> result = new List<T>();
             var childtotal = VisualTreeHelper.GetChildrenCount(Control);
             for (int i = 0; i < childtotal; i++)
             {
@@ -216,14 +249,64 @@ namespace Magic
                 {
                     if (element.GetType() == typeof(T))
                     {
-                        return element;
+                        result.Add((T)element);
                     }
-                    else
+                    var childs = element.FindChilds<T>();
+                    if (childs.Count > 0)
                     {
-                        var target = element.FindChild<T>();
-                        if (target != null)
+                        result.AddRange(childs);
+                    }
+                }
+            }
+            return result;
+        }
+
+
+
+
+        /// <summary>
+        /// 根据型查找子对象
+        /// </summary>
+        /// <param name="Control"></param>
+        /// <returns></returns>
+        public static T FindChild<T>(this FrameworkElement Control)
+            where T : FrameworkElement
+        {
+
+            if (Control is ContentControl Ctl)
+            {
+                if (Ctl.Content.GetType() == typeof(T))
+                {
+                    return (T)Ctl.Content;
+                }
+                else if(Ctl.Content is FrameworkElement content)
+                {
+                    return content.FindChild<T>();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                var childtotal = VisualTreeHelper.GetChildrenCount(Control);
+                for (int i = 0; i < childtotal; i++)
+                {
+                    FrameworkElement element = (FrameworkElement)VisualTreeHelper.GetChild(Control, i);
+                    if (element != null)
+                    {
+                        if (element.GetType() == typeof(T))
                         {
-                            return target;
+                            return (T)element;
+                        }
+                        else
+                        {
+                            var target = element.FindChild<T>();
+                            if (target != null)
+                            {
+                                return target;
+                            }
                         }
                     }
                 }
@@ -239,22 +322,40 @@ namespace Magic
         /// <returns></returns>
         public static FrameworkElement FindChild(this FrameworkElement Control, String childName)
         {
-            var childtotal = VisualTreeHelper.GetChildrenCount(Control);
-            for (int i = 0; i < childtotal; i++)
+            if (Control is ContentControl Ctl)
             {
-                FrameworkElement element = (FrameworkElement)VisualTreeHelper.GetChild(Control, i);
-                if (element != null)
+                if (Ctl.Content is FrameworkElement content)
                 {
-                    if (element.Name == childName)
+                    if (content.Name == childName)
                     {
-                        return element;
+                        return content;
                     }
-                    else
+                    return content.FindChild(childName);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                var childtotal = VisualTreeHelper.GetChildrenCount(Control);
+                for (int i = 0; i < childtotal; i++)
+                {
+                    FrameworkElement element = (FrameworkElement)VisualTreeHelper.GetChild(Control, i);
+                    if (element != null)
                     {
-                        var target = element.FindChild(childName);
-                        if (target != null)
+                        if (element.Name == childName)
                         {
-                            return target;
+                            return element;
+                        }
+                        else
+                        {
+                            var target = element.FindChild(childName);
+                            if (target != null)
+                            {
+                                return target;
+                            }
                         }
                     }
                 }
@@ -341,7 +442,60 @@ namespace Magic
             }
         }
 
+        public static double DpiScaleX
+        {
+            get
+            {
+                if (SystemDpiX != 96)
+                {
+                    return (double)SystemDpiX / 96.0;
+                }
+                return 1.0;
+            }
+        }
+
+        public static double DpiScaleY
+        {
+            get
+            {
+                if (SystemDpiY != 96)
+                {
+                    return (double)SystemDpiY / 96.0;
+                }
+                return 1.0;
+            }
+        }
+
+        //public static void GetDPI(out int dpix, out int dpiy)
+        //{
+        //    dpix = 0;
+        //    dpiy = 0;
+        //    using (System.Management.ManagementClass mc = new System.Management.ManagementClass("Win32_DesktopMonitor"))
+        //    {
+        //        using (System.Management.ManagementObjectCollection moc = mc.GetInstances())
+        //        {
+
+        //            foreach (System.Management.ManagementObject each in moc)
+        //            {
+        //                dpix = int.Parse((each.Properties["PixelsPerXLogicalInch"].Value.ToString()));
+        //                dpiy = int.Parse((each.Properties["PixelsPerYLogicalInch"].Value.ToString()));
+        //            }
+        //        }
+        //    }
+        //}
+
+
+
+
+
+
         public static Single SystemDpiX { get; private set; }
         public static Single SystemDpiY { get; private set; }
+
+
+
+
+
+
     }
 }

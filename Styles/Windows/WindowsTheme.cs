@@ -15,7 +15,6 @@ namespace Magic.Styles.Windows
         public WindowTheme()
         {
             Services = new ServiceCollection();
-
         }
 
 

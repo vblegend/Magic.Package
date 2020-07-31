@@ -8,7 +8,9 @@
     <SolidColorBrush x:Key="TabItem.Selected.Border" Color="Transparent" />
 
     <DataTemplate DataType="{x:Type ctl:CostomTabItem}">
-        <ContentControl Content="{Binding Page, UpdateSourceTrigger=PropertyChanged}" />
+        <ContentControl Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" >
+
+        </ContentControl>
     </DataTemplate>
 
     <Style TargetType="{x:Type TabControl}">

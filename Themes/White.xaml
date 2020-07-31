@@ -40,7 +40,23 @@
     <!--  滑块背景  -->
     <SolidColorBrush x:Key="GLOBAL_SCROLLBAR_BACKGROUND" Color="#80FF8000" />
 
+    <!--  ListBox 背景画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_LISTBOX_BACKGROUND" Color="#FF2C2C2F" />
 
+    <!--  ListBox 字体画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_LISTBOX_FOREGROUND" Color="#FFFFFFFF" />
+
+    <!--  ListBox 禁用背景画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_LISTBOX_DISABLE_BACKGROUND" Color="#FF434347" />
+
+    <!--  ListBox 禁用字体画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_LISTBOX_DISABLE_FOREGROUND" Color="#FF555557" />
+
+    <!--  ListBox 边框画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_LISTBOX_BORDER_BACKGROUND" Color="#FF007ACC" />
+
+    <!--  ListBox 选中背景画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_LISTBOX_SELECTION_BACKGROUND" Color="#FF007ACC" />
 
     <!--  TextBox背景色  -->
     <SolidColorBrush x:Key="GLOBAL_TEXTBOX_BACKGROUND" Color="#FFF1F1F1" />
@@ -99,13 +115,16 @@
     <SolidColorBrush x:Key="GLOBAL_BUTTON_OVER_COLOR" Color="#40FF8000" />
     <!--  全局按钮按下状态画刷  -->
     <SolidColorBrush x:Key="GLOBAL_BUTTON_DOWN_COLOR" Color="#FF007ACC" />
-    <!--  全局按钮禁用状态画刷  -->
-    <SolidColorBrush x:Key="GLOBAL_BUTTON_DISABLE_COLOR" Color="#FF404040" />
     <!--  全局按钮边框画刷  -->
     <SolidColorBrush x:Key="GLOBAL_BUTTON_BORDER_COLOR" Color="#FFFF4040" />
     <!--  全局按钮默认按钮状态画刷  -->
     <SolidColorBrush x:Key="GLOBAL_BUTTON_DEFAULT_COLOR" Color="#80FF8000" />
-
+    <!--  全局按钮禁用状态画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_BUTTON_DISABLE_FOREGROUND" Color="#FF404040" />
+    <!--  全局按钮禁用状态画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_BUTTON_DISABLE_BACKGROUND" Color="#FF404040" />
+    <!--  全局禁用边框画刷  -->
+    <SolidColorBrush x:Key="GLOBAL_DISABLE_BORDER_COLOR" Color="#FF646464" />
 
     <!--  状态栏样式  -->
     <!--  全局状态栏背景画刷  -->

@@ -122,10 +122,10 @@
                             <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="ChildItem" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="ChildItem" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="ChildItem" Property="TextBlock.Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter TargetName="ChildItem" Property="TextBlock.Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -269,8 +269,8 @@
                             <!--<Setter TargetName="templateRoot" Property="BorderBrush" Value="#FF26A0DA" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="templateRoot" Property="TextElement.Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
-                            <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter TargetName="templateRoot" Property="TextElement.Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
+                            <Setter TargetName="GlyphPanel" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                         </Trigger>
                         <!--<Trigger SourceName="SubMenuScrollViewer" Property="CanContentScroll" Value="False">
                             <Setter TargetName="OpaqueRect" Property="Canvas.Top" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}" />

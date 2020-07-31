@@ -20,7 +20,7 @@ namespace Magic
         public static Int32 mainThreadId { get; private set; }
 
         /// <summary>
-        /// 初始化UI线程(只能在UI线程里初始化)
+        /// 初始化UI线程
         /// </summary>
         private static void initContext()
         {
@@ -33,6 +33,10 @@ namespace Magic
                 });
             }
         }
+
+
+
+
 
         /// <summary>
         /// 获取当前操作线程是否处于UI线程内
@@ -100,8 +104,6 @@ namespace Magic
                         callback = null;
                         throw new Exception("SynchronizationContext.Current was not initialized");
                     }
-
-
                     Context.Send((ncallback) =>
                     {
                         ((Action)ncallback)();

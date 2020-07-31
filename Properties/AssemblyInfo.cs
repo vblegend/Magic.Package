@@ -60,11 +60,12 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Commands")]
 [assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Common")] ///
 [assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Controls")]
-//[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Models")]
+[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Converter")]
 //[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Styles")]
 //[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Styles.Controls")]
 [assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Styles.Windows")]
-//[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Themes")]
-//[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Uitity")]
+[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Adorners")]
+[assembly: XmlnsDefinition("http://schemas.l2030.com/magic", "Magic.Decorators")]
+
 
 [assembly: XmlnsPrefix("http://schemas.l2030.com/magic", "magic")]

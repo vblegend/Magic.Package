@@ -86,7 +86,7 @@
                                                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GLOBAL_TEXTBOX_FOUC_BORDER_BACKGROUND}" />
                                                         </Trigger>
                                                         <Trigger Property="IsChecked" Value="True">
-                                                            <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                                                            <Setter TargetName="Chrome" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                                                         </Trigger>
 
                                                         <Trigger Property="IsEnabled" Value="False">

@@ -93,5 +93,10 @@ namespace Magic
             return nColor;
         }
 
+
+
+
+
+
     }
 }

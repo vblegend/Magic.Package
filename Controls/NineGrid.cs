@@ -8,7 +8,7 @@ namespace Magic.Controls
     /// <summary>
     /// 九宫格背景Border
     /// </summary>
-    public class NineGridBorder : Border
+    public class NineGrid : Grid
     {
         /// <summary>
         /// 图片源
@@ -23,7 +23,7 @@ namespace Magic.Controls
         /// 图片源
         /// </summary>
         public static readonly DependencyProperty ImageProperty = DependencyProperty.Register("Image",
-        typeof(ImageSource), typeof(NineGridBorder),
+        typeof(ImageSource), typeof(NineGrid),
         new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Magic.Controls
         /// 图片四个边距
         /// </summary>
         public static readonly DependencyProperty ImageMarginProperty =
-        DependencyProperty.Register("ImageMargin", typeof(Thickness), typeof(NineGridBorder),
+        DependencyProperty.Register("ImageMargin", typeof(Thickness), typeof(NineGrid),
         new FrameworkPropertyMetadata(new Thickness(), FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Magic.Controls
         /// 图片透明度
         /// </summary>
         public static readonly DependencyProperty ImageOpacityProperty =
-        DependencyProperty.Register("ImageOpacity", typeof(double), typeof(NineGridBorder),
+        DependencyProperty.Register("ImageOpacity", typeof(double), typeof(NineGrid),
         new FrameworkPropertyMetadata(1D, FrameworkPropertyMetadataOptions.AffectsRender));
 
 
@@ -67,9 +67,6 @@ namespace Magic.Controls
             get { return !ImageMargin.Equals(new Thickness()); }
         }
 
-
-
-
         protected override void OnRender(DrawingContext dc)
         {
             DrawImage(dc, new Rect(0, 0, RenderSize.Width, RenderSize.Height));
@@ -78,28 +75,21 @@ namespace Magic.Controls
         private void DrawImage(DrawingContext dc, Rect rect)
         {
             ImageSource source = Image;
-
             if (source != null)
             {
                 double opacity = ImageOpacity;
-
                 if (IsNineGrid)
                 {
-
                     Thickness margin = Clamp(ImageMargin, new Size(source.Width, source.Height), rect.Size);
-
                     double[] xGuidelines = { 0, margin.Left, rect.Width - margin.Right, rect.Width };
                     double[] yGuidelines = { 0, margin.Top, rect.Height - margin.Bottom, rect.Height };
                     GuidelineSet guidelineSet = new GuidelineSet(xGuidelines, yGuidelines);
                     guidelineSet.Freeze();
-
                     dc.PushGuidelineSet(guidelineSet);
-
                     double[] vx = { 0D, margin.Left / source.Width, (source.Width - margin.Right) / source.Width, 1D };
                     double[] vy = { 0D, margin.Top / source.Height, (source.Height - margin.Bottom) / source.Height, 1D };
                     double[] x = { rect.Left, rect.Left + margin.Left, rect.Right - margin.Right, rect.Right };
                     double[] y = { rect.Top, rect.Top + margin.Top, rect.Bottom - margin.Bottom, rect.Bottom };
-
                     for (int i = 0; i < 3; ++i)
                     {
                         for (int j = 0; j < 3; ++j)
@@ -113,16 +103,18 @@ namespace Magic.Controls
                             new Rect(x[j], y[i], Math.Max(0D, (x[j + 1] - x[j])), Math.Max(0D, (y[i + 1] - y[i]))));
                         }
                     }
-
                     dc.Pop();
                 }
                 else
                 {
                     ImageBrush brush = new ImageBrush(source);
                     brush.Opacity = opacity;
-
                     dc.DrawRectangle(brush, null, rect);
                 }
+            }
+            else if(Background != null)
+            {
+                dc.DrawRectangle(Background, null, rect);
             }
         }
 

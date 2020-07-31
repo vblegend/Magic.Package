@@ -67,5 +67,8 @@
     <Page Update="Controls\DragControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\Controls\DesignerItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

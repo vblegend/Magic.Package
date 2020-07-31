@@ -40,7 +40,7 @@
                             <!--<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource }" />-->
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <!--<Setter TargetName="border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />-->
+                            <!--<Setter TargetName="border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />-->
                             <!--<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ScrollBar.Pressed.Border}" />-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
@@ -69,8 +69,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
     <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />
@@ -88,15 +86,13 @@
                             <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_OVER_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsDragging" Value="true">
-                            <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
     <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />
@@ -114,15 +110,13 @@
                             <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_OVER_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsDragging" Value="true">
-                            <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
     <Style TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
@@ -192,14 +186,14 @@
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineDownButton}" Value="true" />
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineDownButton}" Value="true" />
                             </MultiDataTrigger.Conditions>
-                            <Setter TargetName="ArrowBottom" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="ArrowBottom" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineUpButton}" Value="true" />
                                 <Condition Binding="{Binding IsPressed, ElementName=PART_LineUpButton}" Value="true" />
                             </MultiDataTrigger.Conditions>
-                            <Setter TargetName="ArrowTop" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="ArrowTop" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </MultiDataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -216,8 +210,8 @@
                             <Setter TargetName="ArrowTop" Property="Fill" Value="{DynamicResource GLOBAL_FOREGROUND_COLOR}" />
                         </MultiDataTrigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="ArrowTop" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
-                            <Setter TargetName="ArrowBottom" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter TargetName="ArrowTop" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
+                            <Setter TargetName="ArrowBottom" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -229,7 +223,7 @@
                 <Setter Property="MinWidth" Value="0" />
                 <Setter Property="Height" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}" />
                 <Setter Property="MinHeight" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}" />
-                <Setter Property="BorderThickness" Value="0,1" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -290,14 +284,14 @@
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineRightButton}" Value="true" />
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineRightButton}" Value="true" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowRight" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                                    <Setter TargetName="ArrowRight" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding IsMouseOver, ElementName=PART_LineLeftButton}" Value="true" />
                                         <Condition Binding="{Binding IsPressed, ElementName=PART_LineLeftButton}" Value="true" />
                                     </MultiDataTrigger.Conditions>
-                                    <Setter TargetName="ArrowLeft" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                                    <Setter TargetName="ArrowLeft" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                                 </MultiDataTrigger>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
@@ -314,8 +308,8 @@
                                     <Setter TargetName="ArrowLeft" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_OVER_COLOR}" />
                                 </MultiDataTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="ArrowLeft" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
-                                    <Setter TargetName="ArrowRight" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                                    <Setter TargetName="ArrowLeft" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
+                                    <Setter TargetName="ArrowRight" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

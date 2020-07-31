@@ -36,7 +36,7 @@
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_OVER_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Content" Property="Opacity" Value="0.5" />

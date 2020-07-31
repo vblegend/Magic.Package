@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-
+using System.Windows;
 
 namespace System
 {
@@ -110,7 +110,12 @@ namespace System
             return s;
         }
 
-
+        public static Point Round(this Point n,Int32 decimals)
+        {
+            var x = Math.Round(n.X, decimals);
+            var y = Math.Round(n.Y,decimals);
+            return new Point(x,y);
+        }
 
 
         public static Int32? ToInt32(this String Text)

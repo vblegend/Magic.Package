@@ -51,12 +51,12 @@
                             <!--<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GLOBAL_BUTTON_OVER_COLOR}"/>-->
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
-                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}"/>-->
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
+                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}"/>-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                             <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -110,10 +110,10 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <!--<Setter TargetName="PressedLayer" Property="Visibility" Value="Visible" />-->
-                            <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="graphic" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter TargetName="graphic" Property="Fill" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -169,10 +169,10 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="PressedLayer" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="graphic" Property="Stroke" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter TargetName="graphic" Property="Stroke" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -241,12 +241,12 @@
                             <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_OVER_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter Property="Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                             <!--<Setter TargetName="PressedLayer" Property="Visibility" Value="Visible" />-->
-                            <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_DOWN_COLOR}" />
+                            <Setter TargetName="btn" Property="Background" Value="{DynamicResource GLOBAL_BUTTON_PRESSED_COLOR}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_COLOR}" />
+                            <Setter Property="Foreground" Value="{DynamicResource GLOBAL_BUTTON_DISABLE_FOREGROUND}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
